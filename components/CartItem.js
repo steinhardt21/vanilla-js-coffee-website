@@ -1,6 +1,6 @@
 import { removeFromCart } from "../services/Order.js";
 
-export default class CartItem extends HTMLElement {
+export class CartItem extends HTMLElement {
   constructor() {
     super()
   }
@@ -23,4 +23,4 @@ export default class CartItem extends HTMLElement {
   }
 }
 
-customElements("cart-item", CartItem)
+customElements.define("cart-item", CartItem)

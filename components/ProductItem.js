@@ -1,6 +1,6 @@
 import { addToCart } from "../services/Order.js"
 
-export default class ProductItem extends HTMLElement {
+export class ProductItem extends HTMLElement {
   constructor() {
     super()
   }
