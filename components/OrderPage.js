@@ -65,6 +65,42 @@ export class OrderPage extends HTMLElement {
         </li>
       `
     }
+
+    this.setFormBindings(this.root.querySelector("form"))
+  }
+
+  setFormBindings(form) {
+    form.addEventListener("submit", event => {
+      event.preventDefault()
+      alert(`Thanks for your order ${this.#user.name}`)
+      this.#user.name = ""
+      this.#user.email = ""
+      this.#user.phone = ""
+
+      // TODO send data to server
+    })
+
+    /**
+     * Two way binding:
+     *  - if you change the form then you change the user (see second part)
+     *  - if you change the user, you change the form (see first part with Proxy)
+     */
+    this.#user = new Proxy(this.#user, {
+      set(target, property, value) {
+        target[property] = value
+
+        // we update also the form
+        form.elements[property].value = value;
+
+        return true
+      }
+    })
+
+    Array.from(form.elements).forEach(element => {
+      element.addEventListener("change", event => {
+        this.#user[element.name] = element.value
+      })
+    })
   }
 }
 
